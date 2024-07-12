@@ -1,0 +1,68 @@
+<div class="container">
+  <h2>Buscar Adversários</h2>
+  <div class="form-group">
+    <label for="cidadeInput">Cidade</label>
+    <input type="text" id="cidadeInput" (input)="onCidadeInput($event)" [(ngModel)]="nomeCidade" name="nomeCidade" autocomplete="off">
+    <ul *ngIf="cidades.length > 0" class="dropdown">
+      <li *ngFor="let cidade of cidades" (click)="selecionarCidade(cidade)">
+        {{ cidade.nome }}
+      </li>
+    </ul>
+  </div>
+  <div class="form-group">
+    <label for="categoria">Categoria</label>
+    <select id="categoria" [(ngModel)]="categoria" name="categoria">
+      <option *ngFor="let cat of categorias" [value]="cat.valor">{{ cat.descricao }}</option>
+    </select>
+  </div>
+  <button (click)="buscarAdversarios()">Buscar</button>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome Completo</th>
+        <th>Pontuação</th>
+        <th>Categoria</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let adversario of adversarios">
+        <td>{{ adversario.id }}</td>
+        <td>{{ adversario.nomeCompleto }}</td>
+        <td>{{ adversario.pontuacao }}</td>
+        <td>{{ adversario.categoria.descricao }}</td>
+        <td><button (click)="abrirModal(adversario)">Convidar</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    <button (click)="paginaAnterior()" [disabled]="pagina === 1">Anterior</button>
+    <span>Página {{ pagina }} de {{ totalDePaginas }}</span>
+    <button (click)="proximaPagina()" [disabled]="pagina === totalDePaginas">Próxima</button>
+  </div>
+  
+  <!-- Modal -->
+  <div *ngIf="modalAberto" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="fecharModal()">&times;</span>
+      <h2>Convidar Adversário</h2>
+      <div class="form-group">
+        <label for="cidadeModalInput">Cidade</label>
+        <input type="text" id="cidadeModalInput" (input)="onCidadeModalInput($event)" [(ngModel)]="nomeCidadeModal" name="nomeCidadeModal" autocomplete="off">
+        <ul *ngIf="cidades.length > 0" class="dropdown">
+          <li *ngFor="let cidade of cidades" (click)="selecionarCidadeModal(cidade)">
+            {{ cidade.nome }}
+          </li>
+        </ul>
+      </div>
+      <div class="form-group">
+        <label for="modeloDaPartida">Modelo da Partida</label>
+        <select id="modeloDaPartida" [(ngModel)]="modeloSelecionado" name="modeloDaPartida">
+          <option *ngFor="let modelo of modelosPartida" [value]="modelo.valor">{{ modelo.descricao }}</option>
+        </select>
+      </div>
+      <button (click)="convidar()">Convidar</button>
+    </div>
+  </div>
+</div>

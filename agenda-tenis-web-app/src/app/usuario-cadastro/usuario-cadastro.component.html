@@ -1,0 +1,18 @@
+<div class="cadastro-container">
+  <h2>Cadastro de Usuário</h2>
+  <form (ngSubmit)="onSubmit(cadastroForm)" #cadastroForm="ngForm">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" ngModel required>
+    </div>
+    <div class="form-group">
+      <label for="senha">Senha</label>
+      <input type="password" id="senha" name="senha" ngModel required>
+    </div>
+    <div class="form-group">
+      <label for="senhaConfirmacao">Confirmação de Senha</label>
+      <input type="password" id="senhaConfirmacao" name="senhaConfirmacao" ngModel required>
+    </div>
+    <button type="submit" [disabled]="!cadastroForm.form.valid">Cadastrar</button>
+  </form>
+</div>

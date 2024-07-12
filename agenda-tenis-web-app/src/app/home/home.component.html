@@ -1,0 +1,44 @@
+<div class="container">
+  <h2>Histórico de Partidas</h2>
+  <table>
+    <thead>
+      <tr>
+        <th class="hidden">ID</th>
+        <th class="hidden">DesafianteId</th>
+        <th>Desafiante</th>
+        <th class="hidden">AdversárioId</th>
+        <th>Adversário</th>
+        <th>Data da Partida</th>
+        <th>Cidade</th>
+        <th>Modelo da Partida</th>
+        <th>Status do Convite</th>
+        <th>Status do Placar</th>
+        <th>Vencedor</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let partida of partidas">
+        <td class="hidden">{{ partida.id }}</td>
+        <td class="hidden">{{ partida.desafianteId }}</td>
+        <td>{{ partida.desafianteNome || 'N/A' }}</td>
+        <td class="hidden">{{ partida.adversarioId }}</td>
+        <td>{{ partida.adversarioNome || 'N/A' }}</td>
+        <td>{{ partida.dataDaPartida | date: 'short' }}</td>
+        <td>{{ partida.nomeCidade }}</td>
+        <td>{{ partida.modeloDaPartida.descricao }}</td>
+        <td>{{ partida.statusConvite.descricao }}</td>
+        <td>{{ partida.statusPlacar?.descricao || 'N/A' }}</td>
+        <td>{{ partida.vencedorId || 'N/A' }}</td>
+        <td>
+          <button *ngIf="partida.statusConvite.id === 1 && usuarioId !== null && +usuarioId === partida.adversarioId" (click)="aceitarConvite(partida.id)">Aceitar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    <button (click)="paginaAnterior()" [disabled]="pagina === 1">Anterior</button>
+    <span>Página {{ pagina }} de {{ totalDePaginas }}</span>
+    <button (click)="proximaPagina()" [disabled]="pagina === totalDePaginas">Próxima</button>
+  </div>
+</div>
