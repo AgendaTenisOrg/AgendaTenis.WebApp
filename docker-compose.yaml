@@ -3,9 +3,9 @@ version: '3.8'
 
 services:
 
-  webapp:
-    image: agenda-tenis-web-app
-    build: .
+  agenda-tenis-web-app:
+    image: matheuscampaninimughrabi/agenda-tenis-web-app
+    container_name: agenda-tenis-web-app
     ports:
       - "81:80"
 
