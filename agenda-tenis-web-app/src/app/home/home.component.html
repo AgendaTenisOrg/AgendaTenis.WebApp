@@ -90,11 +90,28 @@
       <p><strong>Desafiante:</strong> {{ partidaSelecionada.desafianteNome }}</p>
       <p><strong>Adversário:</strong> {{ partidaSelecionada.adversarioNome }}</p>
       <p><strong>Placar:</strong></p>
-      <div *ngFor="let set of partidaSelecionada.placar?.sets">
-        <p>Set {{ set.numeroSet }}: {{ set.gamesDesafiante }} - {{ set.gamesAdversario }} (Tiebreak: {{ set.tiebreakDesafiante }} - {{ set.tiebreakAdversario }})</p>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Número do Set</th>
+            <th>Games Desafiante</th>
+            <th>Games Adversário</th>
+            <th>Tiebreak Desafiante</th>
+            <th>Tiebreak Adversário</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let set of partidaSelecionada?.sets">
+            <td>{{ set.numeroSet }}</td>
+            <td>{{ set.gamesDesafiante }}</td>
+            <td>{{ set.gamesAdversario }}</td>
+            <td>{{ set.tiebreakDesafiante || 'N/A' }}</td>
+            <td>{{ set.tiebreakAdversario || 'N/A' }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <button (click)="responderPlacar(partidaSelecionada!.id, true)">Aceitar</button>
-    <button (click)="responderPlacar(partidaSelecionada!.id, false)">Recusar</button>
+    <button (click)="responderPlacar(partidaSelecionada!.id!, true)">Aceitar</button>
+    <button (click)="responderPlacar(partidaSelecionada!.id!, false)">Recusar</button>
   </div>
 </div>

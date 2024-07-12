@@ -16,7 +16,7 @@ export interface Partida {
   statusConvite: StatusConviteEnumModel;
   statusPlacar: StatusPlacarEnumModel;
   vencedorId: number | null;
-  placar?: Placar; // Adicione esta linha
+  sets: Set[] | null; // Atualizar para refletir a estrutura do backend
 }
 
 export interface ModeloPartidaEnumModel {
@@ -34,12 +34,10 @@ export interface StatusPlacarEnumModel {
   descricao: string;
 }
 
-export interface Placar { // Adicione esta interface
-  sets: {
-    numeroSet: number;
-    gamesDesafiante: number;
-    gamesAdversario: number;
-    tiebreakDesafiante: number | null;
-    tiebreakAdversario: number | null;
-  }[];
+export interface Set {
+  numeroSet: number;
+  gamesDesafiante: number;
+  gamesAdversario: number;
+  tiebreakDesafiante: number | null;
+  tiebreakAdversario: number | null;
 }
