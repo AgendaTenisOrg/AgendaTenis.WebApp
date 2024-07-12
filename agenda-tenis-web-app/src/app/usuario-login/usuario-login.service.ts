@@ -20,15 +20,7 @@ export class UsuarioLoginService {
       'accept': '*/*'
     });
 
-    return this.http.post<any>(this.apiUrl, JSON.stringify(dados), { headers }).pipe(
-      tap(response => {
-        this.armazenarToken(response.token);
-      }),
-      switchMap(() => this.jogadorResumoService.obterResumo()),  // Fetch jogador resumo after login
-      tap(resumo => {
-        this.jogadorResumoService.atualizarResumo(resumo);
-      })
-    );
+    return this.http.post<any>(this.apiUrl, JSON.stringify(dados), { headers });
   }
 
   armazenarToken(token: string): void {

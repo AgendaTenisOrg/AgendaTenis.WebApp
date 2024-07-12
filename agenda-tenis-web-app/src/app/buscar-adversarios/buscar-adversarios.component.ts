@@ -55,10 +55,6 @@ export class BuscarAdversariosComponent implements OnInit {
   ngOnInit(): void {
     this.buscarAdversarios();
 
-    this.jogadorResumoService.resumo$.subscribe(resumo => {
-      this.jogadorResumo = resumo;
-    });
-
     this.cidadeInput$.pipe(
       debounceTime(300),
       distinctUntilChanged(),
@@ -101,23 +97,29 @@ export class BuscarAdversariosComponent implements OnInit {
     this.cidades = [];
   }
 
-  convidar(): void {
-    console.log(this.jogadorResumo)
-    if (this.adversarioSelecionado && this.cidadeSelecionada && this.modeloSelecionado !== null) {
-      const convite = {
-        desafianteNome: this.jogadorResumo?.nomeCompleto || 'Desafiante', // Use o nome completo do jogador
-        adversarioId: this.adversarioSelecionado.usuarioId,
-        adversarioNome: this.adversarioSelecionado.nomeCompleto,
-        dataDaPartida: new Date().toISOString(),
-        idCidade: this.cidadeSelecionada,
-        modeloDaPartida: Number(this.modeloSelecionado) // Assegura que é um número inteiro
-      };
+  async convidar(): Promise<void> {
+    try {
+      this.jogadorResumo = await this.jogadorResumoService.obterResumo();
+      console.log(this.jogadorResumo);
 
-      // Chamada à API
-      this.adversariosService.convidarAdversario(convite).subscribe(response => {
-        this.fecharModal();
-        this.router.navigate(['/']);
-      });
+      if (this.adversarioSelecionado && this.cidadeSelecionada && this.modeloSelecionado !== null) {
+        const convite = {
+          desafianteNome: this.jogadorResumo?.nomeCompleto || 'Desafiante', // Use o nome completo do jogador
+          adversarioId: this.adversarioSelecionado.usuarioId,
+          adversarioNome: this.adversarioSelecionado.nomeCompleto,
+          dataDaPartida: new Date().toISOString(),
+          idCidade: this.cidadeSelecionada,
+          modeloDaPartida: Number(this.modeloSelecionado) // Assegura que é um número inteiro
+        };
+
+        // Chamada à API
+        this.adversariosService.convidarAdversario(convite).subscribe(response => {
+          this.fecharModal();
+          this.router.navigate(['/']);
+        });
+      }
+    } catch (error) {
+      console.error('Erro ao obter o resumo do jogador:', error);
     }
   }
 

@@ -18,20 +18,19 @@ export interface JogadorResumo {
 })
 export class JogadorResumoService extends UtilsService {
   private apiUrl = `${environment.jogadores}/Jogadores/Resumo`;
-  private resumoSubject = new BehaviorSubject<JogadorResumo | null>(null);
-
-  resumo$ = this.resumoSubject.asObservable();
 
   constructor(http: HttpClient) {
     super(http);
   }
 
-  obterResumo(): Observable<JogadorResumo> {
+  async obterResumo(): Promise<JogadorResumo> {
     const headers = this.obterTokenHeader().set('Content-Type', 'application/json');
-    return this.http.get<JogadorResumo>(this.apiUrl, { headers });
-  }
-
-  atualizarResumo(resumo: JogadorResumo): void {
-    this.resumoSubject.next(resumo);
+    try {
+      const resumo = await this.http.get<JogadorResumo>(this.apiUrl, { headers }).toPromise();
+      return resumo!;
+    } catch (error) {
+      console.error('Erro ao obter resumo do jogador:', error);
+      throw new Error('Erro ao obter resumo do jogador');
+    }
   }
 }
