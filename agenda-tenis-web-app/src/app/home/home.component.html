@@ -32,6 +32,7 @@
         <td>{{ partida.vencedorId || 'N/A' }}</td>
         <td>
           <button *ngIf="partida.statusConvite.id === 1 && usuarioId !== null && +usuarioId === partida.adversarioId" (click)="aceitarConvite(partida.id)">Aceitar</button>
+          <button *ngIf="mostrarRegistrarPlacar(partida)" (click)="abrirModal(partida)">Registrar Placar</button>
         </td>
       </tr>
     </tbody>
@@ -40,5 +41,38 @@
     <button (click)="paginaAnterior()" [disabled]="pagina === 1">Anterior</button>
     <span>Página {{ pagina }} de {{ totalDePaginas }}</span>
     <button (click)="proximaPagina()" [disabled]="pagina === totalDePaginas">Próxima</button>
+  </div>
+</div>
+
+<!-- Modal -->
+<div *ngIf="modalAberto" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="fecharModal()">&times;</span>
+    <h2>Registrar Placar</h2>
+    <form (ngSubmit)="registrarPlacar(form)" #form="ngForm">
+      <div class="form-group">
+        <label for="vencedorId">Vencedor ID</label>
+        <input type="number" id="vencedorId" name="vencedorId" ngModel required>
+      </div>
+      <div class="form-group" *ngFor="let set of sets; let i = index">
+        <h3>Set {{ i + 1 }}</h3>
+        <label for="numeroSet">Número do Set</label>
+        <input type="number" id="numeroSet" name="numeroSet" [(ngModel)]="set.numeroSet" required>
+
+        <label for="gamesDesafiante">Games Desafiante</label>
+        <input type="number" id="gamesDesafiante" name="gamesDesafiante" [(ngModel)]="set.gamesDesafiante" required>
+
+        <label for="gamesAdversario">Games Adversário</label>
+        <input type="number" id="gamesAdversario" name="gamesAdversario" [(ngModel)]="set.gamesAdversario" required>
+
+        <label for="tiebreakDesafiante">Tiebreak Desafiante</label>
+        <input type="number" id="tiebreakDesafiante" name="tiebreakDesafiante" [(ngModel)]="set.tiebreakDesafiante">
+
+        <label for="tiebreakAdversario">Tiebreak Adversário</label>
+        <input type="number" id="tiebreakAdversario" name="tiebreakAdversario" [(ngModel)]="set.tiebreakAdversario">
+      </div>
+      <button type="button" (click)="adicionarSet()">Adicionar Set</button>
+      <button type="submit">Registrar</button>
+    </form>
   </div>
 </div>

@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { BuscarAdversariosComponent } from './buscar-adversarios/buscar-adversarios.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { JogadorResumoComponent } from './jogador-resumo/jogador-resumo.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { BuscarAdversariosComponent } from './buscar-adversarios/buscar-adversar
     UsuarioLoginComponent,
     UsuarioCompletarPerfilComponent,
     HomeComponent,
-    BuscarAdversariosComponent
+    BuscarAdversariosComponent,
+    NavbarComponent,
+    JogadorResumoComponent
   ],
   imports: [
     BrowserModule,

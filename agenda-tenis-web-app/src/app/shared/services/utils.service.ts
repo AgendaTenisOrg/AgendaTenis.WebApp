@@ -26,4 +26,8 @@ export class UtilsService {
     const decodedToken: any = jwtDecode(token);
     return decodedToken.unique_name || null;
   }
+
+  public logout(): void {
+    localStorage.removeItem('token');
+  }
 }

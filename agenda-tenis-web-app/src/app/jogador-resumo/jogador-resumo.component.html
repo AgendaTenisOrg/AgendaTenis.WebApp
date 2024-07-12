@@ -1,0 +1,9 @@
+<div *ngIf="jogadorResumo" class="resumo-container">
+  <h2>Resumo do Jogador</h2>
+  <ul>
+    <li><strong>Nome Completo:</strong> {{ jogadorResumo.nomeCompleto }}</li>
+    <li><strong>Idade:</strong> {{ jogadorResumo.idade }}</li>
+    <li><strong>Pontuação:</strong> {{ jogadorResumo.pontuacao }}</li>
+    <li><strong>Categoria:</strong> {{ getCategoriaDescricao(jogadorResumo.categoria) }}</li>
+  </ul>
+</div>

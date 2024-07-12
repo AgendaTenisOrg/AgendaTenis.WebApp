@@ -5,6 +5,18 @@ import { ObterHistoricoDePartidasResponse } from './historico-partidas.model';
 import { environment } from '../../environments/environment';
 import { UtilsService } from '../shared/services/utils.service';
 
+export interface RegistrarPlacarRequest {
+  id: string;
+  vencedorId: number;
+  sets: {
+    numeroSet: number;
+    gamesDesafiante: number;
+    gamesAdversario: number;
+    tiebreakDesafiante: number;
+    tiebreakAdversario: number;
+  }[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,5 +38,11 @@ export class HistoricoPartidasService extends UtilsService {
     const url = `${environment.partidas}/Partidas/Convites/Responder`;
     const body = { id, aceitar: true };
     return this.http.put<any>(url, body, { headers });
+  }
+
+  registrarPlacar(dados: RegistrarPlacarRequest): Observable<any> {
+    const headers = this.obterTokenHeader().set('Content-Type', 'application/json');
+    const url = `${environment.partidas}/Partidas/Placar/Registrar`;
+    return this.http.put<any>(url, JSON.stringify(dados), { headers });
   }
 }

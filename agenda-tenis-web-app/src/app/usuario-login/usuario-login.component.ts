@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UsuarioLoginService } from './usuario-login.service';
 import { UsuarioLoginRequest } from './usuario-login-request.model';
 
@@ -9,7 +10,7 @@ import { UsuarioLoginRequest } from './usuario-login-request.model';
   styleUrls: ['./usuario-login.component.css']
 })
 export class UsuarioLoginComponent {
-  constructor(private usuarioLoginService: UsuarioLoginService) { }
+  constructor(private usuarioLoginService: UsuarioLoginService, private router: Router) { }
 
   onSubmit(form: NgForm) {
     if (form.valid) {
@@ -23,11 +24,18 @@ export class UsuarioLoginComponent {
           this.usuarioLoginService.armazenarToken(response.token);
           window.alert('Login realizado com sucesso');
           form.reset();
+          this.router.navigate(['/']).then(() => {
+            window.location.reload();
+          }); // Redirecionar para a página inicial e recarregar a página após login bem-sucedido
         },
         error => {
           window.alert('Erro ao realizar login: ' + error.error);
         }
       );
     }
+  }
+
+  navigateToCadastro() {
+    this.router.navigate(['/cadastro']);
   }
 }

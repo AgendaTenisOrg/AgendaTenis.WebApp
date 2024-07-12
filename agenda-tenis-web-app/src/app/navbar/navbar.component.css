@@ -1,0 +1,8 @@
+.nav-link {
+    color: #000; /* Ajuste a cor conforme necessário */
+    text-decoration: none;
+    margin-right: 20px;
+    cursor: pointer; /* Adicione esta linha */
+  }
+
+  
