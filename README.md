@@ -128,7 +128,7 @@ O modal abaixo abrirá.
 ### Aceitar/Recusar convite
 Se você for o adversário da partida, ao acessar os detalhes da partida poderá visualizar o botão "Aceitar" e o botão "Recusar".
 
-![Modal detalhes partida](./imagens/aceitar_convite.png)
+![Modal detalhes partida](./imagens/detalhes_partida_aceitar_convite.png)
 
 
 ### Registrar Placar
@@ -138,7 +138,7 @@ Ao abrir o modal de detalhes da partida você poderá registrar o placar se as c
 - A data atual é maior do que a data da partida
 
 A figura a seguir ilustra o botão Registrar
-![Modal detalhes partida](./imagens/detalhes_registrar.png)
+![Modal detalhes partida](./imagens/detalhes_partida_registrar.png)
 
 Após clicar em Registrar o modal abaixo abriráa
 
@@ -149,7 +149,7 @@ Preencha os dados do placar da partida e clique em registrar.
 ### Confirmar/Contestar Placar
 Após o desafiante registrar o placar da partida, o adversário pode confirmar a veracidade do placar ou contestar.
 
-![Modal detalhes partida](./imagens/detalhes_partidas_botoes_confirmar_placar.png)
+![Modal detalhes partida](./imagens/detalhes_partida_confirmar_contestar_placar.png)
 
 Se o adversário confirmar o placar, então o vencedor da partida ganhará 10 pontos e o perdedor perderá 10 pontos (até um mínimo de zero pontos).
 Se o adversário contestar o placar, nenhum dos jogadores tem a pontuação alterada
