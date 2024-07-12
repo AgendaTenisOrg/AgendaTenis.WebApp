@@ -68,18 +68,34 @@ Ao acessar este link você estará na tela de login abaixo
 ![Tela de login](./imagens/acessar_aplicacao.png)
 
 ### Cadastro de usuários
+Para cadastrar um usuário acesse o link http://localhost:81/cadastro ou clique no botão *cadastrar* presente na tela de login
+Segue a tela de cadastro
+
+![Tela de login](./imagens/cadastro.png)
+
+Em seguida, basta digitar um e-mail que ainda não foi cadastrado, uma senha com ao menos 10 caracteres, confirmar a senha e clicar em *Cadastrar*.
+Após clicar em cadastrar você receberá uma mensagem indicando que o cadastro foi realizar com sucesso ou se houve alguma falha (e-mail já cadastrado, por exemplo).
 
 ### Login
+Na tela de login basta inserir um e-mail e senha cadastrados e você será redirecionado para a tela completar perfil (caso seja seu primeiro acesso) ou para a tela inicial (caso já tenha completado seu perfil anteriormente)
+
+![Tela de login](./imagens/login.png)
 
 ### Completar Perfil
+Após realizar login pela primeira vez você será redirecionado para a tela *completar perfil*.
+Nesta tela você poderá preencher as informações pessoais do seu perfil de tenista.
+Segue a tela de completar perfil
 
-### Resumo do jogador
+![Tela de login](./imagens/completar_perfil.png)
+
+Após preencher seus dados, clique no botão Completar Perfil e você será redirecionado para a tela inicial da aplicação que contém o histórico de partidas.
+
+### Histórico de partidas
 
 ### Buscar Adversários
 
 ### Convidar para partida
 
-### Histórico de partidas
 
 ### Detalhes de uma partida
 
@@ -88,6 +104,8 @@ Ao acessar este link você estará na tela de login abaixo
 ### Registrar Placar
 
 ### Confirmar/Contestar Placar
+
+### Resumo do jogador
 
 ## Considerações sobre o projeto <a name = "consideracoes"></a>
 1. Hoje só é possível convidar 1 jogador para a partida, ou seja, o sistema ainda não suporta partidas de duplas
