@@ -1,15 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UsuarioCompletarPerfilService } from './usuario-completar-perfil.service';
 import { UsuarioCompletarPerfilRequest } from './usuario-completar-perfil-request.model';
+import { CidadesService, Cidade } from '../buscar-adversarios/cidades.service';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-usuario-completar-perfil',
   templateUrl: './usuario-completar-perfil.component.html',
   styleUrls: ['./usuario-completar-perfil.component.css']
 })
-export class UsuarioCompletarPerfilComponent {
-  constructor(private usuarioCompletarPerfilService: UsuarioCompletarPerfilService) { }
+export class UsuarioCompletarPerfilComponent implements OnInit {
+  cidades: Cidade[] = [];
+  cidadeInput$ = new Subject<string>();
+  idCidade: number | null = null;
+  nomeCidade: string = '';
+
+  constructor(
+    private usuarioCompletarPerfilService: UsuarioCompletarPerfilService,
+    private cidadesService: CidadesService
+  ) {}
+
+  ngOnInit(): void {
+    this.cidadeInput$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(parteNome => this.cidadesService.buscarCidades(parteNome))
+    ).subscribe(response => {
+      console.log('Cidades recebidas:', response);
+      this.cidades = response || [];
+    });
+  }
 
   onSubmit(form: NgForm) {
     if (form.valid) {
@@ -25,7 +47,7 @@ export class UsuarioCompletarPerfilComponent {
         sobrenome: form.value.sobrenome,
         dataNascimento: dataNascimentoUTC,
         telefone: form.value.telefone,
-        idCidade: form.value.idCidade,
+        idCidade: this.idCidade!,
         maoDominante: form.value.maoDominante,
         backhand: form.value.backhand,
         estiloDeJogo: form.value.estiloDeJogo
@@ -35,11 +57,29 @@ export class UsuarioCompletarPerfilComponent {
         response => {
           window.alert('Perfil completado com sucesso');
           form.reset();
+          this.idCidade = null;
+          this.nomeCidade = '';
         },
         error => {
           window.alert('Erro ao completar perfil: ' + error.error);
         }
       );
     }
+  }
+
+  onCidadeInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const parteNome = input.value;
+    console.log('Parte do nome digitado:', parteNome);
+    if (parteNome.length >= 3) { // Consultar quando pelo menos 3 caracteres foram digitados
+      this.cidadeInput$.next(parteNome);
+    }
+  }
+
+  selecionarCidade(cidade: Cidade): void {
+    console.log('Cidade selecionada:', cidade);
+    this.idCidade = cidade.id;
+    this.nomeCidade = cidade.nome;
+    this.cidades = [];
   }
 }

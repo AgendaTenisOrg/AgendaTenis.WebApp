@@ -31,9 +31,7 @@
         <td>{{ partida.statusPlacar.descricao || 'N/A' }}</td>
         <td>{{ getVencedorNome(partida) }}</td>
         <td>
-          <button *ngIf="partida.statusConvite.id === 1 && usuarioId !== null && +usuarioId === partida.adversarioId" (click)="aceitarConvite(partida.id)">Aceitar</button>
-          <button *ngIf="mostrarRegistrarPlacar(partida)" (click)="abrirModal(partida)">Registrar Placar</button>
-          <button *ngIf="partida.statusPlacar.id === 1 && usuarioId !== null && +usuarioId === partida.adversarioId" (click)="abrirModalConfirmacao(partida)">Confirmação de Placar</button>
+          <button (click)="abrirModalDetalhes(partida)">Detalhes</button>
         </td>
       </tr>
     </tbody>
@@ -42,6 +40,55 @@
     <button (click)="paginaAnterior()" [disabled]="pagina === 1">Anterior</button>
     <span>Página {{ pagina }} de {{ totalDePaginas }}</span>
     <button (click)="proximaPagina()" [disabled]="pagina === totalDePaginas">Próxima</button>
+  </div>
+</div>
+
+<!-- Modal Detalhes -->
+<div *ngIf="modalDetalhesAberto" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="fecharModal()">&times;</span>
+    <h2>Detalhes da Partida</h2>
+    <div *ngIf="partidaSelecionada">
+      <p><strong>Desafiante:</strong> {{ partidaSelecionada.desafianteNome }}</p>
+      <p><strong>Adversário:</strong> {{ partidaSelecionada.adversarioNome }}</p>
+      <p><strong>Data da Partida:</strong> {{ partidaSelecionada.dataDaPartida | date: 'short' }}</p>
+      <p><strong>Cidade:</strong> {{ partidaSelecionada.nomeCidade }}</p>
+      <p><strong>Modelo da Partida:</strong> {{ partidaSelecionada.modeloDaPartida.descricao }}</p>
+      <p><strong>Status do Convite:</strong> {{ partidaSelecionada.statusConvite.descricao }}</p>
+      <p><strong>Status do Placar:</strong> {{ partidaSelecionada.statusPlacar.descricao || 'N/A' }}</p>
+      <p><strong>Vencedor:</strong> {{ getVencedorNome(partidaSelecionada) }}</p>
+      <h3>Placar</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Número do Set</th>
+            <th>Games Desafiante</th>
+            <th>Games Adversário</th>
+            <th>Tiebreak Desafiante</th>
+            <th>Tiebreak Adversário</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let set of partidaSelecionada!.sets!">
+            <td>{{ set.numeroSet }}</td>
+            <td>{{ set.gamesDesafiante }}</td>
+            <td>{{ set.gamesAdversario }}</td>
+            <td>{{ set.tiebreakDesafiante || 'N/A' }}</td>
+            <td>{{ set.tiebreakAdversario || 'N/A' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="partidaSelecionada!.statusConvite.id === 1 && usuarioId !== null && +usuarioId === partidaSelecionada!.adversarioId">
+      <button (click)="aceitarConvite(partidaSelecionada!.id!)">Aceitar</button>
+    </div>
+    <div *ngIf="mostrarRegistrarPlacar(partidaSelecionada!)">
+      <button (click)="abrirModal(partidaSelecionada!)">Registrar</button>
+    </div>
+    <div *ngIf="partidaSelecionada!.statusPlacar.id === 1 && usuarioId !== null && +usuarioId === partidaSelecionada!.adversarioId">
+      <button (click)="responderPlacar(partidaSelecionada!.id!, true)">Confirmar Placar</button>
+      <button (click)="responderPlacar(partidaSelecionada!.id!, false)">Recusar Placar</button>
+    </div>
   </div>
 </div>
 
@@ -78,40 +125,5 @@
       <button type="button" (click)="adicionarSet()">Adicionar Set</button>
       <button type="submit">Registrar</button>
     </form>
-  </div>
-</div>
-
-<!-- Modal Confirmação de Placar -->
-<div *ngIf="modalConfirmacaoAberto" class="modal">
-  <div class="modal-content">
-    <span class="close" (click)="fecharModalConfirmacao()">&times;</span>
-    <h2>Confirmação de Placar</h2>
-    <div *ngIf="partidaSelecionada">
-      <p><strong>Desafiante:</strong> {{ partidaSelecionada.desafianteNome }}</p>
-      <p><strong>Adversário:</strong> {{ partidaSelecionada.adversarioNome }}</p>
-      <p><strong>Placar:</strong></p>
-      <table>
-        <thead>
-          <tr>
-            <th>Número do Set</th>
-            <th>Games Desafiante</th>
-            <th>Games Adversário</th>
-            <th>Tiebreak Desafiante</th>
-            <th>Tiebreak Adversário</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let set of partidaSelecionada?.sets">
-            <td>{{ set.numeroSet }}</td>
-            <td>{{ set.gamesDesafiante }}</td>
-            <td>{{ set.gamesAdversario }}</td>
-            <td>{{ set.tiebreakDesafiante || 'N/A' }}</td>
-            <td>{{ set.tiebreakAdversario || 'N/A' }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <button (click)="responderPlacar(partidaSelecionada!.id!, true)">Aceitar</button>
-    <button (click)="responderPlacar(partidaSelecionada!.id!, false)">Recusar</button>
   </div>
 </div>

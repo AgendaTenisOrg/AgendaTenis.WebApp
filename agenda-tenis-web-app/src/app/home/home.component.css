@@ -80,7 +80,7 @@ button:hover:not(:disabled) {
   font-weight: bold;
 }
 
-.close:hover,
+close:hover,
 .close:focus {
   color: black;
   text-decoration: none;

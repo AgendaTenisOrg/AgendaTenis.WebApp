@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   totalDePaginas: number = 0;
   usuarioId: string | null = null;
   modalAberto: boolean = false;
+  modalDetalhesAberto: boolean = false;
   modalConfirmacaoAberto: boolean = false;
   partidaSelecionada: Partida | null = null;
   sets: any[] = [
@@ -52,7 +53,8 @@ export class HomeComponent implements OnInit {
   aceitarConvite(id: string): void {
     console.log(`Tentando aceitar o convite para a partida com ID: ${id}`);
     this.historicoPartidasService.aceitarConvite(id).subscribe(() => {
-      this.obterHistorico();
+      this.fecharModal();
+      window.location.reload(); // Recarregar a página
       console.log(`Convite aceito para a partida com ID: ${id}`);
     });
   }
@@ -62,8 +64,14 @@ export class HomeComponent implements OnInit {
     this.modalAberto = true;
   }
 
+  abrirModalDetalhes(partida: Partida): void {
+    this.partidaSelecionada = partida;
+    this.modalDetalhesAberto = true;
+  }
+
   fecharModal(): void {
     this.modalAberto = false;
+    this.modalDetalhesAberto = false;
     this.partidaSelecionada = null;
     this.sets = [
       {
@@ -90,14 +98,14 @@ export class HomeComponent implements OnInit {
     if (form.valid && this.partidaSelecionada) {
       const request: RegistrarPlacarRequest = {
         id: this.partidaSelecionada.id,
-        vencedorId: form.value.vencedor,
+        vencedorId: +form.value.vencedor,
         sets: this.sets
       };
 
       this.historicoPartidasService.registrarPlacar(request).subscribe(response => {
         window.alert('Placar registrado com sucesso');
         this.fecharModal();
-        this.obterHistorico();
+        window.location.reload(); // Recarregar a página
       }, error => {
         window.alert('Erro ao registrar placar: ' + error.error);
       });
@@ -110,16 +118,6 @@ export class HomeComponent implements OnInit {
     return partida.statusConvite.id === 2 && dataAtual > dataPartida && this.usuarioId !== null && +this.usuarioId === partida.desafianteId && partida.statusPlacar.id === 0;
   }
 
-  abrirModalConfirmacao(partida: Partida): void {
-    this.partidaSelecionada = partida;
-    this.modalConfirmacaoAberto = true;
-  }
-
-  fecharModalConfirmacao(): void {
-    this.modalConfirmacaoAberto = false;
-    this.partidaSelecionada = null;
-  }
-
   responderPlacar(id: string | null, confirmarPlacar: boolean): void {
     if (id) {
       const request: ResponderPlacarRequest = {
@@ -128,8 +126,8 @@ export class HomeComponent implements OnInit {
       };
       this.historicoPartidasService.responderPlacar(request).subscribe(response => {
         window.alert('Resposta ao placar enviada com sucesso');
-        this.fecharModalConfirmacao();
-        this.obterHistorico();
+        this.fecharModal();
+        window.location.reload(); // Recarregar a página
       }, error => {
         window.alert('Erro ao responder ao placar: ' + error.error);
       });

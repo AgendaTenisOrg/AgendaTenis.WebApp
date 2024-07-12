@@ -19,7 +19,6 @@
   <table>
     <thead>
       <tr>
-        <th>ID</th>
         <th>Nome Completo</th>
         <th>Pontuação</th>
         <th>Categoria</th>
@@ -28,7 +27,6 @@
     </thead>
     <tbody>
       <tr *ngFor="let adversario of adversarios">
-        <td>{{ adversario.id }}</td>
         <td>{{ adversario.nomeCompleto }}</td>
         <td>{{ adversario.pontuacao }}</td>
         <td>{{ adversario.categoria.descricao }}</td>

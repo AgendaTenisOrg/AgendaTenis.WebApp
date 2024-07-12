@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ObterHistoricoDePartidasResponse } from './historico-partidas.model';
+import { ObterHistoricoDePartidasResponse, Partida } from './historico-partidas.model';
 import { environment } from '../../environments/environment';
 import { UtilsService } from '../shared/services/utils.service';
 

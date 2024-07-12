@@ -5,6 +5,7 @@ import { CidadesService, Cidade } from './cidades.service';
 import { BuscarAdversariosResponse, Adversario, CategoriaEnum } from './adversarios.model';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { JogadorResumoService, JogadorResumo } from '../shared/services/jogador-resumo.service';
 
 @Component({
   selector: 'app-buscar-adversarios',
@@ -28,6 +29,7 @@ export class BuscarAdversariosComponent implements OnInit {
   adversarioSelecionado: Adversario | null = null;
   cidadeSelecionada: number | null = null;
   modeloSelecionado: number | null = null;
+  jogadorResumo: JogadorResumo | null = null;
 
   categorias = [
     { valor: null, descricao: 'Todos' }, // Adiciona a opção "Todos"
@@ -46,11 +48,16 @@ export class BuscarAdversariosComponent implements OnInit {
   constructor(
     private adversariosService: AdversariosService,
     private cidadesService: CidadesService,
+    private jogadorResumoService: JogadorResumoService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.buscarAdversarios();
+
+    this.jogadorResumoService.resumo$.subscribe(resumo => {
+      this.jogadorResumo = resumo;
+    });
 
     this.cidadeInput$.pipe(
       debounceTime(300),
@@ -95,10 +102,11 @@ export class BuscarAdversariosComponent implements OnInit {
   }
 
   convidar(): void {
+    console.log(this.jogadorResumo)
     if (this.adversarioSelecionado && this.cidadeSelecionada && this.modeloSelecionado !== null) {
       const convite = {
-        desafianteNome: 'Mocked Desafiante', // Mockado para exemplo
-        adversarioId: this.adversarioSelecionado.id,
+        desafianteNome: this.jogadorResumo?.nomeCompleto || 'Desafiante', // Use o nome completo do jogador
+        adversarioId: this.adversarioSelecionado.usuarioId,
         adversarioNome: this.adversarioSelecionado.nomeCompleto,
         dataDaPartida: new Date().toISOString(),
         idCidade: this.cidadeSelecionada,

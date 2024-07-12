@@ -16,7 +16,7 @@ export interface Partida {
   statusConvite: StatusConviteEnumModel;
   statusPlacar: StatusPlacarEnumModel;
   vencedorId: number | null;
-  sets: Set[] | null; // Atualizar para refletir a estrutura do backend
+  sets: Set[] | null;
 }
 
 export interface ModeloPartidaEnumModel {

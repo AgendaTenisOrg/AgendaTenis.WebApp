@@ -8,12 +8,13 @@ import { BuscarAdversariosComponent } from './buscar-adversarios/buscar-adversar
 import { AuthGuard } from './shared/guards/auth.guard';
 import { JogadorResumoComponent } from './jogador-resumo/jogador-resumo.component';
 import { IsAnonymousGuard } from './shared/guards/is-anonymous-guard.guard';
+import { NaoPermitePerfilCompletoGuard } from './shared/guards/nao-permite-perfil-completo.guard';
 
 const routes: Routes = [
   { path: 'cadastro', component: UsuarioCadastroComponent, canActivate: [IsAnonymousGuard] },
   { path: 'login', component: UsuarioLoginComponent, canActivate: [IsAnonymousGuard] },
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'completar-perfil', component: UsuarioCompletarPerfilComponent, canActivate: [AuthGuard] },
+  { path: 'completar-perfil', component: UsuarioCompletarPerfilComponent, canActivate: [AuthGuard, NaoPermitePerfilCompletoGuard] },
   { path: 'buscar-adversarios', component: BuscarAdversariosComponent, canActivate: [AuthGuard] },
   { path: 'resumo', component: JogadorResumoComponent, canActivate: [AuthGuard] }
 ];

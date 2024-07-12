@@ -1,39 +1,43 @@
 <div class="completar-perfil-container">
-    <h2>Completar Perfil</h2>
-    <form (ngSubmit)="onSubmit(perfilForm)" #perfilForm="ngForm">
-      <div class="form-group">
-        <label for="nome">Nome</label>
-        <input type="text" id="nome" name="nome" ngModel required>
-      </div>
-      <div class="form-group">
-        <label for="sobrenome">Sobrenome</label>
-        <input type="text" id="sobrenome" name="sobrenome" ngModel required>
-      </div>
-      <div class="form-group">
-        <label for="dataNascimento">Data de Nascimento</label>
-        <input type="date" id="dataNascimento" name="dataNascimento" ngModel required>
-      </div>
-      <div class="form-group">
-        <label for="telefone">Telefone</label>
-        <input type="text" id="telefone" name="telefone" ngModel required>
-      </div>
-      <div class="form-group">
-        <label for="idCidade">ID da Cidade</label>
-        <input type="number" id="idCidade" name="idCidade" ngModel required>
-      </div>
-      <div class="form-group">
-        <label for="maoDominante">Mão Dominante</label>
-        <input type="text" id="maoDominante" name="maoDominante" ngModel required>
-      </div>
-      <div class="form-group">
-        <label for="backhand">Backhand</label>
-        <input type="text" id="backhand" name="backhand" ngModel required>
-      </div>
-      <div class="form-group">
-        <label for="estiloDeJogo">Estilo de Jogo</label>
-        <input type="text" id="estiloDeJogo" name="estiloDeJogo" ngModel required>
-      </div>
-      <button type="submit" [disabled]="!perfilForm.form.valid">Completar Perfil</button>
-    </form>
-  </div>
-  
+  <h2>Completar Perfil</h2>
+  <form (ngSubmit)="onSubmit(perfilForm)" #perfilForm="ngForm">
+    <div class="form-group">
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" name="nome" ngModel required>
+    </div>
+    <div class="form-group">
+      <label for="sobrenome">Sobrenome</label>
+      <input type="text" id="sobrenome" name="sobrenome" ngModel required>
+    </div>
+    <div class="form-group">
+      <label for="dataNascimento">Data de Nascimento</label>
+      <input type="date" id="dataNascimento" name="dataNascimento" ngModel required>
+    </div>
+    <div class="form-group">
+      <label for="telefone">Telefone</label>
+      <input type="text" id="telefone" name="telefone" ngModel required>
+    </div>
+    <div class="form-group">
+      <label for="cidadeInput">Cidade</label>
+      <input type="text" id="cidadeInput" name="nomeCidade" [(ngModel)]="nomeCidade" (input)="onCidadeInput($event)" required>
+      <ul *ngIf="cidades.length > 0">
+        <li *ngFor="let cidade of cidades" (click)="selecionarCidade(cidade)">
+          {{ cidade.nome }}
+        </li>
+      </ul>
+    </div>
+    <div class="form-group">
+      <label for="maoDominante">Mão Dominante</label>
+      <input type="text" id="maoDominante" name="maoDominante" ngModel required>
+    </div>
+    <div class="form-group">
+      <label for="backhand">Backhand</label>
+      <input type="text" id="backhand" name="backhand" ngModel required>
+    </div>
+    <div class="form-group">
+      <label for="estiloDeJogo">Estilo de Jogo</label>
+      <input type="text" id="estiloDeJogo" name="estiloDeJogo" ngModel required>
+    </div>
+    <button type="submit" [disabled]="!perfilForm.form.valid">Completar Perfil</button>
+  </form>
+</div>
