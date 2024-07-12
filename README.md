@@ -91,21 +91,75 @@ Segue a tela de completar perfil
 Após preencher seus dados, clique no botão Completar Perfil e você será redirecionado para a tela inicial da aplicação que contém o histórico de partidas.
 
 ### Histórico de partidas
+Na tela histórico de partidas, você poderá ver todas as partidas que foi convidado, aceitou/recusou convite e as partidas antigas que já realizou.
+
+![Tela de login](./imagens/historico_partidas.png)
 
 ### Buscar Adversários
+Para buscar adversários, clique em Buscar Adversários na barra de navegação.
+
+![Tela buscar adversários](./imagens/buscar_adversarios.png)
+
+Utilize os filtros Cidade e Categoria se desejar filtrar os adversários disponíveis.
 
 ### Convidar para partida
+Para convidar um adversário para uma partida clique no botão Convidar na tela buscar adversários
+
+![Tela buscar adversários](./imagens/buscar_adversarios.png)
+
+O modal a seguir abrirá
+
+![Modal convidar adversário](./imagens/convidar.png)
+
+Escolha a cidade que você deseja realizar a partida e o número de sets da partida (Modelo da Partida) e clique em convidar.
+
+Você será redirecionado para a tela inicial (histórico de partidas) e poderá ver a partida criada.
+
+![Histórico partidas](./imagens/historico_partidas_nova.png)
 
 
 ### Detalhes de uma partida
+Na tela histórico de partidas, clique em Detalhes para ver mais detalhes da partida.
+O modal abaixo abrirá.
+
+![Modal detalhes partida](./imagens/detalhes_partida.png)
+
 
 ### Aceitar/Recusar convite
+Se você for o adversário da partida, ao acessar os detalhes da partida poderá visualizar o botão "Aceitar" e o botão "Recusar".
+
+![Modal detalhes partida](./imagens/aceitar_convite.png)
+
 
 ### Registrar Placar
+Ao abrir o modal de detalhes da partida você poderá registrar o placar se as condições a seguir forem verdadeiras:
+- Você é o desafiante da partida
+- O adversário da partida já aceitou o convite
+- A data atual é maior do que a data da partida
+
+A figura a seguir ilustra o botão Registrar
+![Modal detalhes partida](./imagens/detalhes_registrar.png)
+
+Após clicar em Registrar o modal abaixo abriráa
+
+![Modal detalhes partida](./imagens/modal_registrar_placar.png)
+
+Preencha os dados do placar da partida e clique em registrar.
 
 ### Confirmar/Contestar Placar
+Após o desafiante registrar o placar da partida, o adversário pode confirmar a veracidade do placar ou contestar.
+
+![Modal detalhes partida](./imagens/detalhes_partidas_botoes_confirmar_placar.png)
+
+Se o adversário confirmar o placar, então o vencedor da partida ganhará 10 pontos e o perdedor perderá 10 pontos (até um mínimo de zero pontos).
+Se o adversário contestar o placar, nenhum dos jogadores tem a pontuação alterada
 
 ### Resumo do jogador
+Para acessar a tela resumo do jogador, clique em Resumo na barra de navegação.
+Nesta tela você poderá ver um resumo útil de seu perfil de tenista.
+
+![Modal detalhes partida](./imagens/resumo_jogador.png)
+
 
 ## Considerações sobre o projeto <a name = "consideracoes"></a>
 1. Hoje só é possível convidar 1 jogador para a partida, ou seja, o sistema ainda não suporta partidas de duplas
