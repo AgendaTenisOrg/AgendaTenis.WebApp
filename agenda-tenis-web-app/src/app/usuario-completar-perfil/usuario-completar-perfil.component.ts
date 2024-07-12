@@ -5,6 +5,7 @@ import { UsuarioCompletarPerfilRequest } from './usuario-completar-perfil-reques
 import { CidadesService, Cidade } from '../buscar-adversarios/cidades.service';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usuario-completar-perfil',
@@ -19,7 +20,8 @@ export class UsuarioCompletarPerfilComponent implements OnInit {
 
   constructor(
     private usuarioCompletarPerfilService: UsuarioCompletarPerfilService,
-    private cidadesService: CidadesService
+    private cidadesService: CidadesService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -56,9 +58,9 @@ export class UsuarioCompletarPerfilComponent implements OnInit {
       this.usuarioCompletarPerfilService.completarPerfil(completarPerfilRequest).subscribe(
         response => {
           window.alert('Perfil completado com sucesso');
-          form.reset();
-          this.idCidade = null;
-          this.nomeCidade = '';
+          this.router.navigate(['/']).then(() => {
+            window.location.reload();
+          }); // Redirecionar para a página inicial e recarregar a página após login bem-sucedido
         },
         error => {
           window.alert('Erro ao completar perfil: ' + error.error);

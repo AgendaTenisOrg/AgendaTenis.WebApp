@@ -24,9 +24,7 @@ export class UsuarioLoginComponent {
           this.usuarioLoginService.armazenarToken(response.token);
           window.alert('Login realizado com sucesso');
           form.reset();
-          this.router.navigate(['/']).then(() => {
-            window.location.reload();
-          }); // Redirecionar para a página inicial e recarregar a página após login bem-sucedido
+          this.router.navigate(['/completar-perfil'])
         },
         error => {
           window.alert('Erro ao realizar login: ' + error.error);
