@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HistoricoPartidasService, RegistrarPlacarRequest } from './historico-partidas.service';
+import { HistoricoPartidasService, RegistrarPlacarRequest, ResponderPlacarRequest } from './historico-partidas.service';
 import { Partida } from './historico-partidas.model';
 import { UtilsService } from '../shared/services/utils.service';
 import { NgForm } from '@angular/forms';
@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   totalDePaginas: number = 0;
   usuarioId: string | null = null;
   modalAberto: boolean = false;
+  modalConfirmacaoAberto: boolean = false;
   partidaSelecionada: Partida | null = null;
   sets: any[] = [
     {
@@ -106,7 +107,33 @@ export class HomeComponent implements OnInit {
   mostrarRegistrarPlacar(partida: Partida): boolean {
     const dataAtual = new Date();
     const dataPartida = new Date(partida.dataDaPartida);
-    return partida.statusConvite.id === 2 && dataAtual > dataPartida && this.usuarioId !== null && +this.usuarioId === partida.desafianteId && partida.statusPlacar?.id === 0;
+    return partida.statusConvite.id === 2 && dataAtual > dataPartida && this.usuarioId !== null && +this.usuarioId === partida.desafianteId && partida.statusPlacar.id === 0;
+  }
+
+  abrirModalConfirmacao(partida: Partida): void {
+    this.partidaSelecionada = partida;
+    this.modalConfirmacaoAberto = true;
+  }
+
+  fecharModalConfirmacao(): void {
+    this.modalConfirmacaoAberto = false;
+    this.partidaSelecionada = null;
+  }
+
+  responderPlacar(id: string | null, confirmarPlacar: boolean): void {
+    if (id) {
+      const request: ResponderPlacarRequest = {
+        id,
+        confirmarPlacar
+      };
+      this.historicoPartidasService.responderPlacar(request).subscribe(response => {
+        window.alert('Resposta ao placar enviada com sucesso');
+        this.fecharModalConfirmacao();
+        this.obterHistorico();
+      }, error => {
+        window.alert('Erro ao responder ao placar: ' + error.error);
+      });
+    }
   }
 
   getVencedorNome(partida: Partida): string {

@@ -5,18 +5,6 @@ import { ObterHistoricoDePartidasResponse } from './historico-partidas.model';
 import { environment } from '../../environments/environment';
 import { UtilsService } from '../shared/services/utils.service';
 
-export interface RegistrarPlacarRequest {
-  id: string;
-  vencedorId: number;
-  sets: {
-    numeroSet: number;
-    gamesDesafiante: number;
-    gamesAdversario: number;
-    tiebreakDesafiante: number;
-    tiebreakAdversario: number;
-  }[];
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -40,9 +28,32 @@ export class HistoricoPartidasService extends UtilsService {
     return this.http.put<any>(url, body, { headers });
   }
 
-  registrarPlacar(dados: RegistrarPlacarRequest): Observable<any> {
+  registrarPlacar(request: RegistrarPlacarRequest): Observable<any> {
     const headers = this.obterTokenHeader().set('Content-Type', 'application/json');
     const url = `${environment.partidas}/Partidas/Placar/Registrar`;
-    return this.http.put<any>(url, JSON.stringify(dados), { headers });
+    return this.http.put<any>(url, request, { headers });
   }
+
+  responderPlacar(request: ResponderPlacarRequest): Observable<any> {
+    const headers = this.obterTokenHeader().set('Content-Type', 'application/json');
+    const url = `${environment.partidas}/Partidas/Placar/Responder`;
+    return this.http.put<any>(url, request, { headers });
+  }
+}
+
+export interface RegistrarPlacarRequest {
+  id: string;
+  vencedorId: number;
+  sets: {
+    numeroSet: number;
+    gamesDesafiante: number;
+    gamesAdversario: number;
+    tiebreakDesafiante: number | null;
+    tiebreakAdversario: number | null;
+  }[];
+}
+
+export interface ResponderPlacarRequest {
+  id: string;
+  confirmarPlacar: boolean;
 }

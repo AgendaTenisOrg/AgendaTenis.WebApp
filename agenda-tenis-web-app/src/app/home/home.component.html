@@ -28,13 +28,12 @@
         <td>{{ partida.nomeCidade }}</td>
         <td>{{ partida.modeloDaPartida.descricao }}</td>
         <td>{{ partida.statusConvite.descricao }}</td>
-        <td>{{ partida.statusPlacar?.descricao || 'N/A' }}</td>
-        <td>
-          {{ getVencedorNome(partida) }}
-        </td>
+        <td>{{ partida.statusPlacar.descricao || 'N/A' }}</td>
+        <td>{{ getVencedorNome(partida) }}</td>
         <td>
           <button *ngIf="partida.statusConvite.id === 1 && usuarioId !== null && +usuarioId === partida.adversarioId" (click)="aceitarConvite(partida.id)">Aceitar</button>
           <button *ngIf="mostrarRegistrarPlacar(partida)" (click)="abrirModal(partida)">Registrar Placar</button>
+          <button *ngIf="partida.statusPlacar.id === 1 && usuarioId !== null && +usuarioId === partida.adversarioId" (click)="abrirModalConfirmacao(partida)">Confirmação de Placar</button>
         </td>
       </tr>
     </tbody>
@@ -46,7 +45,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Registrar Placar -->
 <div *ngIf="modalAberto" class="modal">
   <div class="modal-content">
     <span class="close" (click)="fecharModal()">&times;</span>
@@ -79,5 +78,23 @@
       <button type="button" (click)="adicionarSet()">Adicionar Set</button>
       <button type="submit">Registrar</button>
     </form>
+  </div>
+</div>
+
+<!-- Modal Confirmação de Placar -->
+<div *ngIf="modalConfirmacaoAberto" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="fecharModalConfirmacao()">&times;</span>
+    <h2>Confirmação de Placar</h2>
+    <div *ngIf="partidaSelecionada">
+      <p><strong>Desafiante:</strong> {{ partidaSelecionada.desafianteNome }}</p>
+      <p><strong>Adversário:</strong> {{ partidaSelecionada.adversarioNome }}</p>
+      <p><strong>Placar:</strong></p>
+      <div *ngFor="let set of partidaSelecionada.placar?.sets">
+        <p>Set {{ set.numeroSet }}: {{ set.gamesDesafiante }} - {{ set.gamesAdversario }} (Tiebreak: {{ set.tiebreakDesafiante }} - {{ set.tiebreakAdversario }})</p>
+      </div>
+    </div>
+    <button (click)="responderPlacar(partidaSelecionada!.id, true)">Aceitar</button>
+    <button (click)="responderPlacar(partidaSelecionada!.id, false)">Recusar</button>
   </div>
 </div>
