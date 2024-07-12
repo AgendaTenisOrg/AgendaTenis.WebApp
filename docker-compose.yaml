@@ -1,0 +1,188 @@
+version: '3.8'
+
+
+services:
+
+  webapp:
+    image: agenda-tenis-web-app
+    build: .
+    ports:
+      - "81:80"
+
+  agenda-tenis-rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: agenda-tenis-rabbitmq
+    networks:
+      - agenda-tenis-network
+    hostname: agenda-tenis-rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_VHOST: "platform"
+      RABBITMQ_DEFAULT_USER: "agendatenis"
+      RABBITMQ_DEFAULT_PASS: "UCpkGkG37xgDzNvG6rbkGDuVeyNc4vlcVtDorn3wPFhR9URvhDN6cSeOzL4HXN3u4Z3Ahv"
+    volumes:
+      - rabbitmqvolume:/var/lib/rabbitmq
+    restart: unless-stopped
+
+
+  agenda-tenis-redis:
+    image: redis:7.2.5-alpine
+    container_name: agenda-tenis-redis
+    networks:
+      - agenda-tenis-network
+    hostname: jogadores-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+
+  agenda-tenis-identity-server-api:
+    image: matheuscampaninimughrabi/agenda-tenis-identity-server-api
+    container_name: agenda-tenis-identity-server-api
+    networks:
+      - agenda-tenis-network
+    ports:
+      - "5000:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Container"
+      ASPNETCORE_URLS: "http://+:8080"
+    restart: unless-stopped
+    depends_on:
+      - agenda-tenis-idp-sqlserver
+
+
+  agenda-tenis-idp-sqlserver:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: agenda-tenis-idp-sqlserver
+    networks:
+      - agenda-tenis-network
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "MinhaSenha!"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+    volumes:
+      - sqlserverdata:/var/opt/mssql
+    restart: unless-stopped
+
+
+  agenda-tenis-jogadores-api:
+    image: matheuscampaninimughrabi/agenda-tenis-jogadores-api
+    container_name: agenda-tenis-jogadores-api
+    networks:
+      - agenda-tenis-network
+    ports:
+      - "5001:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Container"
+      ASPNETCORE_URLS: "http://+:8080"
+    restart: unless-stopped
+    depends_on:
+      - agenda-tenis-jogadores-postgres
+      - agenda-tenis-redis
+
+
+  agenda-tenis-jogadores-worker-service:
+    image: matheuscampaninimughrabi/agenda-tenis-jogadores-worker-service
+    container_name: agenda-tenis-jogadores-worker-service
+    networks:
+      - agenda-tenis-network
+    environment:
+      DOTNET_ENVIRONMENT: "Container"
+    restart: unless-stopped
+    depends_on:
+      - agenda-tenis-jogadores-postgres
+      - agenda-tenis-rabbitmq
+      - agenda-tenis-redis
+
+
+  agenda-tenis-jogadores-postgres:
+    image: postgres
+    container_name: agenda-tenis-jogadores-postgres
+    networks:
+      - agenda-tenis-network
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "Matheus1234!"
+    volumes:
+      - postgresqlvolume:/var/lib/postgresql/data
+    restart: unless-stopped
+
+
+  agenda-tenis-partidas-api:
+    image: matheuscampaninimughrabi/agenda-tenis-partidas-api
+    container_name: agenda-tenis-partidas-api
+    networks:
+      - agenda-tenis-network
+    ports:
+      - "5002:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Container"
+      ASPNETCORE_URLS: "http://+:8080"
+    restart: unless-stopped
+    depends_on:
+      - agenda-tenis-partidas-mongodb
+      - agenda-tenis-rabbitmq
+      - agenda-tenis-redis
+
+
+  agenda-tenis-partidas-mongodb:
+    image: mongo:latest
+    container_name: agenda-tenis-partidas-mongodb
+    networks:
+      - agenda-tenis-network
+    hostname: partidas-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "mongouser"
+      MONGO_INITDB_ROOT_PASSWORD: "eprPs2UEJ239RvH7SicPkcFbkTQoa8"
+    volumes:
+      - mongodbvolume:/data/db
+    restart: unless-stopped
+
+
+  agenda-tenis-cidades-api:
+    image: matheuscampaninimughrabi/agenda-tenis-cidades-api
+    container_name: agenda-tenis-cidades-api
+    networks:
+      - agenda-tenis-network
+    ports:
+      - "5003:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Container"
+      ASPNETCORE_URLS: "http://+:8080"
+    restart: unless-stopped
+    depends_on:
+      - agenda-tenis-redis
+    
+
+  agenda-tenis-cidades-internal-api:
+    image: matheuscampaninimughrabi/agenda-tenis-cidades-internal-api
+    container_name: agenda-tenis-cidades-internal-api
+    networks:
+      - agenda-tenis-network
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Container"
+      ASPNETCORE_URLS: "http://+:8080"
+    ports:
+      - "5004:8080"
+    restart: unless-stopped
+    depends_on:
+      - agenda-tenis-redis
+
+networks:
+  agenda-tenis-network:
+
+
+
+volumes:
+  sqlserverdata:
+  postgresqlvolume:
+  rabbitmqvolume:  
+  mongodbvolume:
+
