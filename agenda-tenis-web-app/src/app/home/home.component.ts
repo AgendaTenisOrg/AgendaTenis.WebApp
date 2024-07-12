@@ -89,7 +89,7 @@ export class HomeComponent implements OnInit {
     if (form.valid && this.partidaSelecionada) {
       const request: RegistrarPlacarRequest = {
         id: this.partidaSelecionada.id,
-        vencedorId: form.value.vencedorId,
+        vencedorId: form.value.vencedor,
         sets: this.sets
       };
 
@@ -106,7 +106,17 @@ export class HomeComponent implements OnInit {
   mostrarRegistrarPlacar(partida: Partida): boolean {
     const dataAtual = new Date();
     const dataPartida = new Date(partida.dataDaPartida);
-    return partida.statusConvite.id === 2 && dataAtual > dataPartida && this.usuarioId !== null && +this.usuarioId === partida.desafianteId;
+    return partida.statusConvite.id === 2 && dataAtual > dataPartida && this.usuarioId !== null && +this.usuarioId === partida.desafianteId && partida.statusPlacar?.id === 0;
+  }
+
+  getVencedorNome(partida: Partida): string {
+    if (partida.vencedorId === partida.desafianteId) {
+      return partida.desafianteNome || 'Desafiante';
+    } else if (partida.vencedorId === partida.adversarioId) {
+      return partida.adversarioNome || 'Adversário';
+    } else {
+      return 'N/A';
+    }
   }
 
   paginaAnterior(): void {

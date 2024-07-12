@@ -29,7 +29,9 @@
         <td>{{ partida.modeloDaPartida.descricao }}</td>
         <td>{{ partida.statusConvite.descricao }}</td>
         <td>{{ partida.statusPlacar?.descricao || 'N/A' }}</td>
-        <td>{{ partida.vencedorId || 'N/A' }}</td>
+        <td>
+          {{ getVencedorNome(partida) }}
+        </td>
         <td>
           <button *ngIf="partida.statusConvite.id === 1 && usuarioId !== null && +usuarioId === partida.adversarioId" (click)="aceitarConvite(partida.id)">Aceitar</button>
           <button *ngIf="mostrarRegistrarPlacar(partida)" (click)="abrirModal(partida)">Registrar Placar</button>
@@ -51,8 +53,11 @@
     <h2>Registrar Placar</h2>
     <form (ngSubmit)="registrarPlacar(form)" #form="ngForm">
       <div class="form-group">
-        <label for="vencedorId">Vencedor ID</label>
-        <input type="number" id="vencedorId" name="vencedorId" ngModel required>
+        <label for="vencedor">Vencedor</label>
+        <select id="vencedor" name="vencedor" ngModel required>
+          <option *ngIf="partidaSelecionada" [value]="partidaSelecionada.desafianteId">{{ partidaSelecionada.desafianteNome }}</option>
+          <option *ngIf="partidaSelecionada" [value]="partidaSelecionada.adversarioId">{{ partidaSelecionada.adversarioNome }}</option>
+        </select>
       </div>
       <div class="form-group" *ngFor="let set of sets; let i = index">
         <h3>Set {{ i + 1 }}</h3>
