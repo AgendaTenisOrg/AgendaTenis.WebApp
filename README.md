@@ -22,10 +22,10 @@ Segue a nomenclatura que será adotada ao longo desta documentação:
 - Partidas Serviço: AgendaTenis.Partidas
 - Cidades Serviço: AgendaTenis.Cidades
 
-### Metodologia
+### Sobre a documentação
 O presente repositório consiste do front-end da aplicação AgendaTenis e será chamado de AgendaTenis.WebApp.\
 Por ser a porta de entrada e se comunicar com todos os microsserviços do ecossistema da aplicação decidi incluir alguns detalhes técnicos específicos dos microsserviços com os quais ela se comunica.\
-Você pode encontrar sobre cada microsserviço na documentação específica de cada um deles.
+Para saber mais sobre cada microsserviço, consulte a documentação em seus respectivos repositórios.
 
 ## Descrição técnica
 A seguir vou apresentar a topologia completa da aplicação e descrever todos os serviços que fazem parte do ecossistema da aplicação Agenda Tênis.
