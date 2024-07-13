@@ -25,6 +25,9 @@ FROM nginx:alpine
 # Copy the build output to the NGINX html directory
 COPY --from=build /app/dist/agenda-tenis-web-app /usr/share/nginx/html
 
+# Copy the nginx configuration file
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Expose port 80
 EXPOSE 80
 
