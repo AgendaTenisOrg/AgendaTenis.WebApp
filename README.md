@@ -164,9 +164,7 @@ Nesta tela você poderá ver um resumo útil de seu perfil de tenista.
 ## Considerações sobre o projeto <a name = "consideracoes"></a>
 1. Hoje só é possível convidar 1 jogador para a partida, ou seja, o sistema ainda não suporta partidas de duplas
 2. Ainda não criei testes de unidade. É algo que está no backlog.
-3. No microsserviço AgendaTenis.Identity, criei uma implementação bastante simples de cadastro de usuários. 
-   No futuro será interessante melhorar esta implementação, utilizando bibliotecas robustas como o Microsoft.AspNetCore.Identity que conta com um modelo de dados bastante completo para autenticação e autorização de usuário ou um serviço como o Keycloak.
-4. Não houve tempo hábil para incluir um api gateway entre o front-end e os microsserviços. Futuramente ele será incluído (provavelmente vou utilizar o Kong)
-5. No docker-compose.yaml
+3. Não houve tempo hábil para incluir um api gateway entre o front-end e os microsserviços. Futuramente ele será incluído (provavelmente vou utilizar o Kong)
+4. No docker-compose.yaml
    - Configurei os microsserviços para expor as portas para o host, isso foi necessário para que não haja problemas para o front-end se comunicar com os microsserviços. Quando o Api gateway for incluído, vou atualizar o docker-compose.yaml para não expor as portas do microsserviços
    - Configurei os microsserviços para expor portas http. Isso não é indicado para ambientes produtivos.
