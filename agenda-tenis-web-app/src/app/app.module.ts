@@ -8,7 +8,7 @@ import { UsuarioCadastroComponent } from './componentes/usuario-cadastro/usuario
 import { UsuarioLoginComponent } from './componentes/usuario-login/usuario-login.component';
 import { UsuarioCompletarPerfilComponent } from './componentes/usuario-completar-perfil/usuario-completar-perfil.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from './guardaRotas/auth.guard';
 import { HomeComponent } from './componentes/home/home.component';
 import { BuscarAdversariosComponent } from './componentes/buscar-adversarios/buscar-adversarios.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';

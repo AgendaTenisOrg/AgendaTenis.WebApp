@@ -5,10 +5,10 @@ import { UsuarioLoginComponent } from './componentes/usuario-login/usuario-login
 import { UsuarioCompletarPerfilComponent } from './componentes/usuario-completar-perfil/usuario-completar-perfil.component';
 import { HomeComponent } from './componentes/home/home.component';
 import { BuscarAdversariosComponent } from './componentes/buscar-adversarios/buscar-adversarios.component';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from './guardaRotas/auth.guard';
 import { JogadorResumoComponent } from './componentes/jogador-resumo/jogador-resumo.component';
-import { IsAnonymousGuard } from './guards/is-anonymous-guard.guard';
-import { NaoPermitePerfilCompletoGuard } from './guards/nao-permite-perfil-completo.guard';
+import { IsAnonymousGuard } from './guardaRotas/usuario-anonimo.guard';
+import { NaoPermitePerfilCompletoGuard } from './guardaRotas/nao-permite-perfil-completo.guard';
 
 const routes: Routes = [
   { path: 'cadastro', component: UsuarioCadastroComponent, canActivate: [IsAnonymousGuard] },

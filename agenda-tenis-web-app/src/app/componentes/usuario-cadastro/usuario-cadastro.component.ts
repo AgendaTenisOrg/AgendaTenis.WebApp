@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UsuarioCadastroRequest } from '../../services/identity/models/usuario-cadastro.request';
-import { IdentityService } from 'src/app/services/identity/identity.service';
+import { UsuarioCadastroRequest } from '../../servicos/identity/models/usuario-cadastro.request';
+import { IdentityService } from 'src/app/servicos/identity/identity.service';
 
 @Component({
   selector: 'app-usuario-cadastro',

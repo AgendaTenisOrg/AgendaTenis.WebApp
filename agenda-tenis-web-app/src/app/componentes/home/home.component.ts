@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { PartidasService } from '../../services/partidas/partidas.service';
-import { Partida } from '../../services/partidas/models/historico-partidas.response';
-import { TokenService } from '../../services/token/token.service';
+import { PartidasService } from '../../servicos/partidas/partidas.service';
+import { Partida } from '../../servicos/partidas/models/historico-partidas.response';
+import { TokenService } from '../../servicos/token/token.service';
 import { NgForm } from '@angular/forms';
-import { RegistrarPlacarRequest } from 'src/app/services/partidas/models/registrar-placar.request';
-import { ResponderPlacarRequest } from 'src/app/services/partidas/models/responder.placar.request';
+import { RegistrarPlacarRequest } from 'src/app/servicos/partidas/models/registrar-placar.request';
+import { ResponderPlacarRequest } from 'src/app/servicos/partidas/models/responder.placar.request';
 
 @Component({
   selector: 'app-home',

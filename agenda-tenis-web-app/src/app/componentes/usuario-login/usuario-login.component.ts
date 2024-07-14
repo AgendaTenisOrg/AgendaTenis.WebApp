@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UsuarioLoginRequest } from '../../services/identity/models/usuario-login-request';
-import { IdentityService } from 'src/app/services/identity/identity.service';
-import { TokenService } from 'src/app/services/token/token.service';
+import { UsuarioLoginRequest } from '../../servicos/identity/models/usuario-login-request';
+import { IdentityService } from 'src/app/servicos/identity/identity.service';
+import { TokenService } from 'src/app/servicos/token/token.service';
 
 @Component({
   selector: 'app-usuario-login',

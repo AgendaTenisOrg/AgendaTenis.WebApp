@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { JogadoresService } from 'src/app/services/jogadores/jogadores.service';
-import { JogadorResumo } from 'src/app/services/jogadores/models/jogador-resumo.response';
+import { JogadoresService } from 'src/app/servicos/jogadores/jogadores.service';
+import { JogadorResumo } from 'src/app/servicos/jogadores/models/jogador-resumo.response';
 
 @Component({
   selector: 'app-jogador-resumo',

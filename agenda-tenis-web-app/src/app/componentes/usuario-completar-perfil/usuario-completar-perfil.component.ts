@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { UsuarioCompletarPerfilRequest } from '../../services/jogadores/models/usuario-completar-perfil.request';
+import { UsuarioCompletarPerfilRequest } from '../../servicos/jogadores/models/usuario-completar-perfil.request';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { CidadesService } from 'src/app/services/cidades/cidades.service';
-import { CidadeResponse } from 'src/app/services/cidades/models/cidade.response';
-import { JogadoresService } from 'src/app/services/jogadores/jogadores.service';
+import { CidadesService } from 'src/app/servicos/cidades/cidades.service';
+import { CidadeResponse } from 'src/app/servicos/cidades/models/cidade.response';
+import { JogadoresService } from 'src/app/servicos/jogadores/jogadores.service';
 
 @Component({
   selector: 'app-usuario-completar-perfil',

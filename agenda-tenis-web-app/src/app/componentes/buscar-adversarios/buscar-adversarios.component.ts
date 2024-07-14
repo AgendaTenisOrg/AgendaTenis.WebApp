@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BuscarAdversariosResponse, Adversario, CategoriaEnum } from '../../services/partidas/models/buscar-adversarios.reponse';
+import { BuscarAdversariosResponse, Adversario, CategoriaEnum } from '../../servicos/partidas/models/buscar-adversarios.reponse';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { CidadesService } from 'src/app/services/cidades/cidades.service';
-import { CidadeResponse } from 'src/app/services/cidades/models/cidade.response';
-import { JogadorResumo } from 'src/app/services/jogadores/models/jogador-resumo.response';
-import { JogadoresService } from 'src/app/services/jogadores/jogadores.service';
-import { PartidasService } from 'src/app/services/partidas/partidas.service';
+import { CidadesService } from 'src/app/servicos/cidades/cidades.service';
+import { CidadeResponse } from 'src/app/servicos/cidades/models/cidade.response';
+import { JogadorResumo } from 'src/app/servicos/jogadores/models/jogador-resumo.response';
+import { JogadoresService } from 'src/app/servicos/jogadores/jogadores.service';
+import { PartidasService } from 'src/app/servicos/partidas/partidas.service';
 
 @Component({
   selector: 'app-buscar-adversarios',
