@@ -15,14 +15,18 @@ export class NaoPermitePerfilCompletoGuard implements CanActivate {
     return this.usuarioService.isPerfilCompleto().pipe(
       map((response: boolean) => {
         if (response) {
-          this.router.navigate(['/']);
+          this.router.navigate(['/']).then(() => {
+            window.location.reload();
+          });
           return false;
         }
         return true;
       }),
       catchError((error) => {
         console.error('Erro ao verificar perfil completo:', error);
-        this.router.navigate(['/']);
+        this.router.navigate(['/']).then(() => {
+          window.location.reload();
+        });
         return of(false);
       })
     );

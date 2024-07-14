@@ -60,7 +60,7 @@ export class UsuarioCompletarPerfilComponent implements OnInit {
           window.alert('Perfil completado com sucesso');
           this.router.navigate(['/']).then(() => {
             window.location.reload();
-          }); // Redirecionar para a página inicial e recarregar a página após login bem-sucedido
+          });
         },
         error => {
           window.alert('Erro ao completar perfil: ' + error.error);
