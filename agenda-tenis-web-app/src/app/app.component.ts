@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UtilsService } from './shared/services/utils.service';
+import { TokenService } from './services/token/token.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
   title = 'agenda-tenis-web-app';
   isLoggedIn: boolean = false;
 
-  constructor(private utilsService: UtilsService) {}
+  constructor(private utilsService: TokenService) {}
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.utilsService.obterToken();
